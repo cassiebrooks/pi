@@ -44,26 +44,6 @@
 ?>
 
 
-<?php // NEWS
-  $no_articles = 1;
-
-  show_news('world', $no_articles, $GUARDIAN_API_KEY);
-  show_news('technology', $no_articles, $GUARDIAN_API_KEY);
-  show_news('politics', $no_articles, $GUARDIAN_API_KEY);
-
-  function show_news($section, $no_articles, $GUARDIAN_API_KEY) {
-    $news_json = file_get_contents('http://content.guardianapis.com/'. $section .'?show-editors-picks=true&page-size='.$no_articles.'&api-key='.$GUARDIAN_API_KEY);
-    $news_array = json_decode($news_json, true);
-  
-    foreach ($news_array['response']['results'] as &$article) {
-      echo "<p>" . $article['webTitle'] . "</p>";
-    }
-    echo "<br><br>";
-  }
-
-?>
-
-
 <div class="table">
 
   <div class="row clock-temp">
@@ -71,7 +51,7 @@
     </div>
 
     <div class="right">
-      <canvas id="weather-icon" width="128" height="128"></canvas>
+      <canvas id="weather-icon" width="72" height="72"></canvas>
 
       <script>
         var skycons = new Skycons({"color": "white"});
@@ -86,6 +66,8 @@
 
   </div>
 
+
+
   <div class="row">
     <!-- <p><?php echo $current_summary; ?></p> -->
     <p><?php echo $detailed_summary; ?></p>
@@ -96,27 +78,34 @@
     <!-- <p>Pressure: <?php echo $pressure; ?></p> -->
   </div>
 
-  
-  <div class="row">
-    <div class="left">
-    </div>
 
-    <div class="right">
-    </div>
+
+  
+  <div class="row news-articles">
+    <?php // NEWS
+      $no_articles = 1;
+
+      show_news('world', $no_articles, $GUARDIAN_API_KEY);
+      show_news('technology', $no_articles, $GUARDIAN_API_KEY);
+      show_news('politics', $no_articles, $GUARDIAN_API_KEY);
+
+      function show_news($section, $no_articles, $GUARDIAN_API_KEY) {
+        $news_json = file_get_contents('http://content.guardianapis.com/'. $section .'?show-editors-picks=true&page-size='.$no_articles.'&api-key='.$GUARDIAN_API_KEY);
+        $news_array = json_decode($news_json, true);
+      
+        foreach ($news_array['response']['results'] as &$article) {
+          echo "<p>" . $article['webTitle'] . "</p>";
+        }
+      }
+
+    ?>
   </div>
 
 
   <div class="row">
-    <div class="left">
-    </div>
-
-    <div class="right">
-    </div>
   </div>
 
 </div>
-
-
 </body>
 
 
