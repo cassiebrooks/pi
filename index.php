@@ -82,6 +82,9 @@
 
   
   <div class="row news-articles">
+
+    <h2>news</h2>
+
     <?php // NEWS
       $no_articles = 1;
 
